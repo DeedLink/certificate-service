@@ -1,6 +1,7 @@
 {
   "name": "certificate-service",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "repository": "git@github.com:DeedLink/certificate-service.git",
   "author": "DulshanSiriwardhana <dulshansiriwardhana70@gmail.com>",

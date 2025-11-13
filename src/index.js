@@ -1,11 +1,10 @@
-require('dotenv').config();
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-
-const connectDB = require('./config/db');
-const certificateRoutes = require('./routes/certificateRoutes');
-const errorHandler = require('./middleware/errorHandler');
+import 'dotenv/config';
+import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
+import { connectDB } from './config/db.js';
+import certificateRoutes from './routes/certificateRoutes.js';
+import errorHandler from './middleware/errorHandler.js';
 
 const app = express();
 
@@ -13,7 +12,7 @@ app.use(cors());
 app.use(express.json({ limit: '2mb' }));
 app.use(morgan('dev'));
 
-app.get('/', (req, res) => res.json({ service: 'certificate-service', status: 'ok' }));
+app.get('/', (_req, res) => res.json({ service: 'certificate-service', status: 'ok' }));
 app.use('/api/certificates', certificateRoutes);
 
 app.use(errorHandler);
@@ -21,9 +20,10 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 4000;
 
 connectDB()
-.then(() => {
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
-})
-.catch((err) => {
-console.error('Failed to start server:', err);
-});
+  .then(() => {
+    app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+  })
+  .catch((err) => {
+    console.error('Failed to start server:', err);
+    process.exit(1);
+  });

@@ -1,7 +1,7 @@
-const Certificate = require('../models/Certificate');
-const { createCertificate } = require('../validators/certificateValidator');
+import Certificate from '../models/Certificate.js';
+import { createCertificate } from '../validators/certificateValidator.js';
 
-async function create(req, res, next) {
+export async function create(req, res, next) {
   try {
     const { error, value } = createCertificate.validate(req.body);
     if (error) return res.status(400).json({ error: error.details[0].message });
@@ -14,7 +14,7 @@ async function create(req, res, next) {
   }
 }
 
-async function list(req, res, next) {
+export async function list(req, res, next) {
   try {
     const { type, q, page = 1, limit = 20 } = req.query;
     const filter = {};
@@ -33,7 +33,7 @@ async function list(req, res, next) {
   }
 }
 
-async function getById(req, res, next) {
+export async function getById(req, res, next) {
   try {
     const { id } = req.params;
     const doc = await Certificate.findById(id);
@@ -44,7 +44,7 @@ async function getById(req, res, next) {
   }
 }
 
-async function update(req, res, next) {
+export async function update(req, res, next) {
   try {
     const { id } = req.params;
     const { error, value } = createCertificate.validate(req.body);
@@ -58,7 +58,7 @@ async function update(req, res, next) {
   }
 }
 
-async function remove(req, res, next) {
+export async function remove(req, res, next) {
   try {
     const { id } = req.params;
     const deleted = await Certificate.findByIdAndDelete(id);
@@ -68,5 +68,3 @@ async function remove(req, res, next) {
     next(err);
   }
 }
-
-module.exports = { create, list, getById, update, remove };
