@@ -1,12 +1,13 @@
 import express from 'express';
 import * as controller from '../controllers/certificateController.js';
+import { authMiddleware } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.post('/', controller.create);
-router.get('/', controller.list);
-router.get('/:id', controller.getById);
-router.put('/:id', controller.update);
-router.delete('/:id', controller.remove);
+router.post('/', authMiddleware, controller.create);
+router.get('/', authMiddleware, controller.list);
+router.get('/:id', authMiddleware, controller.getById);
+router.put('/:id', authMiddleware, controller.update);
+router.delete('/:id', authMiddleware, controller.remove);
 
 export default router;
