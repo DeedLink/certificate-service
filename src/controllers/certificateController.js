@@ -68,3 +68,17 @@ export async function remove(req, res, next) {
     next(err);
   }
 }
+
+export async function getByTokenId(req, res, next) {
+  try {
+    const { tokenId } = req.params;
+
+    const doc = await Certificate.findOne({ "data.tokenId": Number(tokenId) });
+
+    if (!doc) return res.status(404).json({ error: "Certificate not found" });
+
+    res.json(doc);
+  } catch (err) {
+    next(err);
+  }
+}
