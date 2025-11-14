@@ -75,7 +75,7 @@ export async function getByTokenId(req, res, next) {
 
     const doc = await Certificate.findOne({ "data.tokenId": Number(tokenId) });
 
-    if (!doc) return res.status(201).json({ message: "Certificate not found" });
+    if (!doc) return res.status(404).json({ error: "Certificate not found" });
 
     res.json(doc);
   } catch (err) {
