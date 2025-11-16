@@ -17,7 +17,7 @@ app.use('/api/certificates', certificateRoutes);
 
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5009;
 
 connectDB()
   .then(() => {
